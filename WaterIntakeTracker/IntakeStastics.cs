@@ -10,7 +10,7 @@ namespace WaterIntakeTracker
         public IntakeStastics()
         {
            OuncesConsumed = 0;
-           OuncesRemaining = 64;
+            OuncesRemaining = Constants.WaterIntakeGoal;
            OuncesInExcessOfGoal = 0;
         }
 

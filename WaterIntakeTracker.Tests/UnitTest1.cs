@@ -38,17 +38,43 @@ namespace WaterIntakeTracker.Tests
         public void PrintWaterIntakeSoFarMessage()
         {
             WaterIntake water = new WaterIntake();
-            IntakeStastics stats = new IntakeStastics();
-            Messages message = new Messages();
 
             water.AddOuncesDrank(25);
             water.AddOuncesDrank(20);
 
-            stats = water.ComputeStatistics();
+            var stats = water.ComputeStatistics();
 
-            message = water.DisplayMessage(stats);
+            var message = water.DisplayMessage(stats);
 
-            Assert.AreEqual("You have consumed 45 ounces of water today.", message.WaterIntakeSoFarMessage);
+            Assert.AreEqual("You have consumed 45 ounce(s) of water today.", message.WaterIntakeSoFarMessage);
+        }
+
+        [TestMethod]
+        public void GivenIntakeReachesGoal_GoalReachedIsTrue()
+        {
+            WaterIntake water = new WaterIntake();
+            water.AddOuncesDrank(Constants.WaterIntakeGoal);
+
+            var goalReached = water.GoalReached;
+            
+            Assert.IsTrue(goalReached);
+        }
+
+        [TestMethod]
+        public void GivenIntakeNotReachedGoal_GoalReachedIsFalse()
+        {
+            Assert.IsTrue(false);
+        }
+
+        [TestMethod]
+        public void GivenIncreaseInIntake_TotalConsumedIncreasesByIntakeAmount()
+        {
+            var water = new WaterIntake();
+
+            water.AddOuncesDrank(56);
+            water.AddOuncesDrank(5);
+
+            Assert.AreEqual(61, water.TotalConsumed);
         }
     }
 }
